@@ -219,16 +219,24 @@ MORE :
 
 <DSL> TOKEN :
 {
-  <IN: "in">
-| <OUT: "out">
-| < PLUS: "+" >
+  < PLUS: "+" >
 | < MINUS: "-" >
 | < STAR: "*" >
 | < SLASH: "/" >
+}
+
+/* WORDS */
+<DSL> TOKEN:
+{  <IN: "in">
+| <OUT: "out">
 | < FLOAT: "float" >
 | < INT : "int">
 | < DOUBLE : "double" >
-| < LPAREN: "(" >
+
+}
+
+/* SEPARATORS */
+<DSL> TOKEN:{  < LPAREN: "(" >
 | < RPAREN: ")" >
 | < LBRACKET: "[" >
 | < RBRACKET: "]" >
@@ -243,7 +251,7 @@ MORE :
 {
    < INTEGER: (["0"-"9"])+ >
   | < DECIMAL_NUMBER: <INTEGER> "." <INTEGER> >
-  | < SYMBOL: (["A"-"Z","a"-"z"](["0"-"9","A"-"Z","a"-"z"])*) >
+  | < VAR: (["A"-"Z","a"-"z"](["0"-"9","A"-"Z","a"-"z"])*) >
   
 }
 
