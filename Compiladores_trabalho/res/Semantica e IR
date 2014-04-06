@@ -1,1 +1,19 @@
 A análise semântica consiste em detetar erros como a utilização de variaveis não declaradas, atribuição de variaveis de tipos diferentes, entre outros.
+Num compilador de passagem unica é possivel juntar analise sintatica e semantica tornando-se mais otimizado.
+
+Uma tabela de símbolos tem a seguinte composição (em java será representada com uma classe):
+ ________ _______ ______ ____________
+| Symbol | Token | Type | Initiated? |
+|========|=======|======|============|
+|________|_______|______|____________|
+
+para perceber a sua utilização na A.Semantica, ver: http://arantxa.ii.uam.es/~modonnel/Compilers/04_SymbolTablesI.pdf 
+Ainda mais uma possibilidade, acrescentar mais um campo à tabela sendo este "Scope" que nos diz se o Symbol pertence "globalmente", a uma função, etc.
+A ordem na tabela representa a ordem de declaração.
+
+Representação intermédia (na duvida):
+- De alto-nível(ou médio talvez, se que como é java e nao assembly é probably alto)
+- Fazer em conjunto com a AST
+- Também é em arvore -> prepara a geração de código
+- a cada avanço adicionar a chamada do método com os argumentos na árvore (seja operações, atribuições, etc.) 
+- no fim percorre a arvore para o codigo ser gerado
