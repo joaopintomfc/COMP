@@ -246,7 +246,7 @@ MORE :
 
 }
 
-/* */
+/* NUMBERS & VARIABLES*/
 <DSL> TOKEN :
 {
    < INTEGER: (["0"-"9"])+ >

@@ -1,0 +1,74 @@
+﻿stmts -> (linha)+
+
+linha -> declaracao SEMICOLON
+
+linha -> atribuicao SEMICOLON
+
+
+declaracao -> IN datatype VAR LBRACKET (INTEGER)? RBRACKET
+
+declaracao -> OUT datatype VAR LBRACKET RBRACKET
+
+
+datatype -> INT | FLOAT | DOUBLE
+
+atribuicao -> VAR ASSIGN expr
+
+atribuicao -> varwithrange ASSIGN expr2
+
+
+expr -> term termtail
+
+
+termtail -> addop term termtail
+
+termtail -> £(Epsilon)
+
+
+term -> factor factortail
+
+
+factortail -> multop factor factortail
+
+factortail -> £(Epsilon)
+
+
+factor -> LPAREN expr RPAREN
+
+factor -> VAR
+
+
+addop -> PLUS
+
+addop -> MINUS
+
+
+multop -> STAR
+
+multop -> SLASH
+
+ // EXPR2 == EXPR MAS COM RANGE EM VAR
+
+
+expr2 -> term2 termtail2
+
+
+termtail2 -> addop term2 termtail2
+
+termtail2 -> £(Epsilon)
+
+
+term2 -> factor2 factortail2
+
+
+factortail2 -> multop factor2 factortail2
+
+factortail2 -> £(Epsilon)
+
+
+factor -> LPAREN expr2 RPAREN
+
+factor -> varwithrange
+
+
+varwithrange -> VAR LPAREN INTEGER COLON INTEGER RPAREN
