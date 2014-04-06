@@ -17,3 +17,4 @@ Representação intermédia (na duvida):
 - Também é em arvore -> prepara a geração de código
 - a cada avanço adicionar a chamada do método com os argumentos na árvore (seja operações, atribuições, etc.) 
 - no fim percorre a arvore para o codigo ser gerado
+ver pagina 6: http://dragonbook.stanford.edu/lecture-notes/Stanford-CS143/16-Intermediate-Rep.pdf
