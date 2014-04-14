@@ -216,43 +216,13 @@ MORE :
 }
 
 
-/*OPERATORS 
 
-<DSL> TOKEN :
-{
-  < PLUS: "+" >
-| < MINUS: "-" >
-| < STAR: "*" >
-| < SLASH: "/" >
-}*/
-
-/* WORDS */
 <DSL> TOKEN:
-{  <IN: "in">
-| <OUT: "out">
-//| < FLOAT: "float" >
-//| < INT : "int">
-//| < DOUBLE : "double" >
-
-}
-
-/* SEPARATORS 
-<DSL> TOKEN:{  < LPAREN: "(" >
-| < RPAREN: ")" >
-| < LBRACKET: "[" >
-| < RBRACKET: "]" >
-| < SEMICOLON: ";" >
-| < ASSIGN: "=" >
-| < COLON: ":" >
-
-}*/
-
-/* NUMBERS & VARIABLES*/
-<DSL> TOKEN :
-{
-   < INTEGER: (["0"-"9"])+ >
-  | < DECIMAL_NUMBER: <INTEGER> "." <INTEGER> >
-  | < VAR: (["A"-"Z","a"-"z"](["0"-"9","A"-"Z","a"-"z"])*) >
+{	<IN: "in">
+|	<OUT: "out">
+|	< INTEGER: (["0"-"9"])+ >
+|	< DECIMAL_NUMBER: <INTEGER> "." <INTEGER> >
+|	< VAR: (["A"-"Z","a"-"z"](["0"-"9","A"-"Z","a"-"z"])*) >
   
 }
 
@@ -2155,7 +2125,7 @@ void DefaultValue():
   "default" MemberValue()
 }
 
-void dslStmts():
+void dslStatements():
 {}
 {
 	(dslLine())+
