@@ -13,9 +13,7 @@ declaracao -> OUT datatype VAR LBRACKET RBRACKET
 
 datatype -> INT | FLOAT | DOUBLE
 
-atribuicao -> VAR ASSIGN expr
-
-atribuicao -> varwithrange ASSIGN expr2
+atribuicao -> VAR (	ASSIGN expr | varwithrange ASSIGN expr2 )
 
 
 expr -> term termtail
@@ -69,7 +67,7 @@ factortail2 -> £(Epsilon)
 
 factor -> LPAREN expr2 RPAREN
 
-factor -> varwithrange
+factor -> VAR varwithrange
 
 
-varwithrange -> VAR LPAREN INTEGER COLON INTEGER RPAREN
+varwithrange -> LPAREN INTEGER COLON INTEGER RPAREN
