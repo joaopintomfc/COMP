@@ -223,6 +223,7 @@ MORE :
 |	< INTEGER: (["0"-"9"])+ >
 |	< DECIMAL_NUMBER: <INTEGER> "." <INTEGER> >
 |	< VAR: (["A"-"Z","a"-"z"](["0"-"9","A"-"Z","a"-"z"])*) >
+|	< DSL_END: "*/" > 
   
 }
 
@@ -1818,6 +1819,8 @@ void Statement():
   SynchronizedStatement()
 |
   TryStatement()
+|
+  dslStatements() < DSL_END >
 }
 
 void AssertStatement():

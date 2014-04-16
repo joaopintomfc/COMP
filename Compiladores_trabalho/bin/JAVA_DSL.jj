@@ -185,11 +185,12 @@ PARSER_END(JavaParser)
 /* COMMENTS */
 
 MORE :
+
 {
   <"/**" ~["/"]> { input_stream.backup(1); } : IN_FORMAL_COMMENT
 |
   "/*" : IN_MULTI_LINE_COMMENT
-  | "/*@mat" : DSL
+| "/*@mat" : DSL
 }
 
 SPECIAL_TOKEN :
@@ -215,46 +216,16 @@ MORE :
 }
 
 
-/*OPERATORS */
 
-<DSL> TOKEN :
-{
-  < PLUS: "+" >
-| < MINUS: "-" >
-| < STAR: "*" >
-| < SLASH: "/" >
-}
-
-/* WORDS */
 <DSL> TOKEN:
-{  <IN: "in">
-| <OUT: "out">
-| < FLOAT: "float" >
-| < INT : "int">
-| < DOUBLE : "double" >
-
-}
-
-/* SEPARATORS */
-<DSL> TOKEN:{  < LPAREN: "(" >
-| < RPAREN: ")" >
-| < LBRACKET: "[" >
-| < RBRACKET: "]" >
-| < SEMICOLON: ";" >
-| < ASSIGN: "=" >
-| < COLON: ":" >
-
-}
-
-/* NUMBERS & VARIABLES*/
-<DSL> TOKEN :
-{
-   < INTEGER: (["0"-"9"])+ >
-  | < DECIMAL_NUMBER: <INTEGER> "." <INTEGER> >
-  | < VAR: (["A"-"Z","a"-"z"](["0"-"9","A"-"Z","a"-"z"])*) >
+{	<IN: "in">
+|	<OUT: "out">
+|	< INTEGER: (["0"-"9"])+ >
+|	< DECIMAL_NUMBER: <INTEGER> "." <INTEGER> >
+|	< VAR: (["A"-"Z","a"-"z"](["0"-"9","A"-"Z","a"-"z"])*) >
+|	< DSL_END: "*/" > 
   
 }
-
 
 /* RESERVED WORDS AND LITERALS */
 
@@ -1848,6 +1819,8 @@ void Statement():
   SynchronizedStatement()
 |
   TryStatement()
+|
+  dslStatements() < DSL_END >
 }
 
 void AssertStatement():
@@ -2153,4 +2126,105 @@ void DefaultValue():
 {}
 {
   "default" MemberValue()
+}
+
+void dslStatements():
+{}
+{
+	(dslLine())+
+}
+
+void dslLine(): {}
+{
+	dslDeclaration() <SEMICOLON>
+| 	dslAtribution() <SEMICOLON>
+}
+
+void dslDeclaration(): {}
+{
+  <IN> dslDataType() <VAR> <LBRACKET> ( <INTEGER>)? <RBRACKET>
+| <OUT> dslDataType() <VAR> <LBRACKET> <RBRACKET>
+}
+
+void dslDataType(): {}
+{
+	<INT>
+| 	<FLOAT>
+| 	<DOUBLE>
+}
+
+void dslAtribution(): {}
+{
+	<VAR>
+	(
+	  	<ASSIGN> dslExpr()
+	|	dslVarWithRange() <ASSIGN> dslExpr2()
+	)
+}
+
+void dslVarWithRange(): {}
+{
+	<LPAREN> <INTEGER> <COLON> <INTEGER> <RPAREN>
+}
+
+void dslExpr(): {}
+{
+	dslTerm() dslTermTail()
+}
+
+void dslTerm(): {}
+{
+	dslFactor() dslFactorTail()
+}
+
+void dslTermTail(): {}
+{
+	dslAddOp() dslTerm() dslTermTail()
+}
+
+void dslFactor(): {}
+{
+	<LPAREN > dslExpr() <RPAREN>
+|	<VAR>	
+}
+
+void dslFactorTail(): {}
+{
+	dslMultOp() dslFactor() dslFactorTail()
+}
+
+/* Handling the variables having inline range defined */
+void dslExpr2(): {}{	dslTerm2() dslTermTail2()
+}
+
+void dslTerm2(): {}
+{
+	dslFactor2() dslFactorTail2()
+}
+
+void dslTermTail2(): {}
+{
+	dslAddOp() dslTerm2() dslTermTail2()
+}
+
+void dslFactor2(): {}
+{
+	<LPAREN> dslExpr2() <RPAREN>
+| 	<VAR> dslVarWithRange()
+}
+
+void dslFactorTail2(): {}
+{
+	dslMultOp() dslFactor2() dslFactorTail2()
+}
+
+void dslAddOp(): {}
+{	<PLUS>
+|   <MINUS>
+}
+
+void dslMultOp(): {}
+{
+	<STAR>
+|	<SLASH>
 }
