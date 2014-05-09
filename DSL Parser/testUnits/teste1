@@ -2,5 +2,5 @@
 in int A[50];
 in float B[100];
 out float C[];
-C=A+B;
+C=A+(B-A);
 */
