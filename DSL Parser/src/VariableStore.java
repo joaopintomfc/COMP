@@ -3,16 +3,29 @@ import java.util.Vector;
 public class VariableStore {
 	private static Vector<MyVariable> storage = new Vector<MyVariable>();
 	
-	public static boolean hasVariable(String symbol, boolean input){
+	public static int checkVariable(String symbol, boolean input){
+		int i=0;
+		
 		for(MyVariable Var : storage){
-			if(Var.symbol.equals(symbol) && Var.input == input)
-				return true;
+			if(Var.symbol.equals(symbol)){
+				i++;
+				if(Var.input == input) 
+					i++;
+				return i;
+			}
 		}
-		return false;
+		return i;
 	}
 	
 	public static void add(MyVariable var){
 		storage.add(var);
+	}
+	
+	public static void setRange(String symbol, int range){
+		for(MyVariable Var : storage){
+			if(Var.symbol.equals(symbol))
+				Var.rangeArray = range;
+		}
 	}
 	
 	public static void clear(){

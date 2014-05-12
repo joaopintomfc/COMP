@@ -23,15 +23,16 @@ public class MyVariable {
 	public MyVariable(String symbol, Token type, Token input, int rangeArray) throws ParseException{
 		this.symbol = symbol;
 		this.type = type;
-		if(input.image.equals("in")) this.input = true;
-		else this.input = false;
-		if( rangeOnDeclaration && this.input){
-			if(rangeArray > range) range = rangeArray;
-			else rangeArray = range;
-		}
-		//this.rangeArray = rangeArray;
-		multiplier = false;
+		if(rangeArray > range) range = rangeArray;
+		this.rangeArray = rangeArray;
 		
+		if(input.image.equals("in")) this.input = true;
+		else{
+			this.rangeArray = range;
+			this.input = false;
+		}
+		
+		multiplier = false;
 	}
 	
 	public String toString(){
@@ -39,5 +40,11 @@ public class MyVariable {
 							+ symbol + " | "
 							+ rangeArray + " | "
 							+ type.image);
+	}
+
+	public static boolean checkRange(int parseInt) {
+		double nr = Math.sqrt(parseInt);
+		if(nr-(int)nr == 0 && nr != 1) return true;
+		else return false;
 	}
 }
