@@ -28,4 +28,11 @@ public class MyVariable {
 		multiplier = false;
 		
 	}
+	
+	public String toString(){
+		return new String((input? "in":"out") + " | "
+							+ symbol + " | "
+							+ rangeArray + " | "
+							+ type.image);
+	}
 }
