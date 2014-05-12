@@ -5,7 +5,7 @@ public class VariableStore {
 	
 	public static boolean hasVariable(String symbol, boolean input){
 		for(MyVariable Var : storage){
-			if(Var.symbol == symbol && Var.input == input)
+			if(Var.symbol.equals(symbol) && Var.input == input)
 				return true;
 		}
 		return false;

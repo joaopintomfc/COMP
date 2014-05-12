@@ -1,11 +1,16 @@
 public class MyVariable {
 	public static boolean rangeOnDeclaration = false;
-	public static int range = 0;
+	public static int range = -1;
 	public int rangeArray;
 	public boolean multiplier;
 	public String symbol;
 	public Token type;
 	public boolean input = true;
+	
+	public static void clear(){
+		range = -1;
+		rangeOnDeclaration = false;
+	}
 	
 	// for multiplier declaration
 	public MyVariable(String symbol, Token type){
