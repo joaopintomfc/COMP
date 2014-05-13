@@ -1,37 +1,61 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
-
+/**
+ * 
+ * @author Mike
+ * Class responsible for generating the dsl given an IR
+ */
 public class Generator {
-
-	public Generator(File file, SimpleNode ast){
+	BufferedReader in;
+	BufferedWriter out;
+	String generatedCode;
+	
+	public Generator(File file, SimpleNode ast) throws IOException{
+		in = new BufferedReader(new FileReader(file));
+		out = new BufferedWriter(new FileWriter("output/"+file.getName()));
+		generate();
+		write();
+		in.close();
+		out.close();
+	}
+	
+	/**
+	 * Generates the code
+	 */
+	public void generate(){
 		
 	}
 	
 	/**
-	 * 
-	 * @param filename
-	 * outputs to the generated output file all the code before the '@mat' tag
+	 * Writes the generated code to the file along with the original code from the source file
+	 * @throws IOException 
 	 */
-	public void writeTop(String filename){
-		
-	}
-	
-	/**
-	 * 
-	 * @param filename
-	 * @param code
-	 * outputs all the generated code to the final output file
-	 */
-	public void writeGenerated(String filename, String code){
-		
-	}
-	
-	/**
-	 * 
-	 * @param filename
-	 * outputs to the generated output file all the code after the '@mat' tagged block 
-	 */
-	public void writeBottom(String filename){
-		
+	public void write() throws IOException{
+		boolean stop = false;
+		int limitTop = 0;
+		do{
+			int v = in.read();
+			char c = (char) v;
+			
+			if(c == '/'){
+				in.mark(0); // 
+				switch(c){
+				
+				}
+			}else{
+				out.write(v);
+			}
+			stop=true;
+		}while(!stop);
 	}
 }
