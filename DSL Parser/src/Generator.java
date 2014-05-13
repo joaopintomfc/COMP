@@ -63,7 +63,7 @@ public class Generator {
 
 		}while(!stop);
 		
-		out.write(generatedCode);
+		//out.write(generatedCode);
 //		out.write("hello"+String.format("%n"));
 		
 		stop=false;
