@@ -24,12 +24,10 @@ public class Generator {
 		in = new BufferedReader(new FileReader(file));
 		File dir = new File("output/");
 		dir.mkdirs();
-		File f = new File("output/"+file.getName()+".java");
-		//f.mkdir();
+		File f = new File("output/"+file.getName());
 		f.createNewFile();
-		//out = new BufferedWriter(new FileWriter("output/"+file.getName()));
-		out = new BufferedWriter(new FileWriter(f.getAbsolutePath()));
-		generate(ast);
+		out = new BufferedWriter(new FileWriter(f));
+		//generate(ast);
 		write();
 		in.close();
 		out.close();
@@ -48,27 +46,42 @@ public class Generator {
 	 * @throws IOException 
 	 */
 	public void write() throws IOException{
-		out.write(generatedCode);
-		/*boolean stop = false;
+		boolean stop = false;
 		do{
 			String read = in.readLine();
-			
+			if(read == null) break;
 			if(read.contains("/*@mat")){
-				String[] lastTop = read.split("/*@mat");
-				out.write(lastTop[0].trim());
+				String[] lastTop = read.split(new String("/*@mat"));
+				for(int i=0; i<lastTop[0].trim().length()-2; i++){
+					out.write(lastTop[0].trim().charAt(i));
+				}	
+				stop = true;
+				out.write(String.format("%n"));
 			}else{
-				out.write(read);
+				out.write(read+String.format("%n"));
 			}
 
-		}while(!stop);*/
+		}while(!stop);
+		
+		out.write(generatedCode);
+		
+		stop=false;
+		do{
+			String read = in.readLine();
+			if(read == null) break;
+			if(read.contains("*/")){
+				String[] lastDsl = read.split(new String("\\*/"));
+				stop=true;
+				if(lastDsl.length > 1) out.write(lastDsl[1].trim()+String.format("%n"));
+			}
+		}while(!stop);
+		
+		stop=false;
+		do{
+			String read = in.readLine();
+			if(read == null) break;
+			else out.write(read+String.format("%n"));
+		}while(!stop);
 	}
-	
-	public void main(String[] args){
-		try {
-			Generator g = new Generator(new File("input/test3.java"), new SimpleNode(1));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 }
