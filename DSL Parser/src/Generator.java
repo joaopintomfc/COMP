@@ -22,7 +22,13 @@ public class Generator {
 	
 	public Generator(File file, SimpleNode ast) throws IOException{
 		in = new BufferedReader(new FileReader(file));
-		out = new BufferedWriter(new FileWriter("output/"+file.getName()));
+		File dir = new File("output/");
+		dir.mkdirs();
+		File f = new File("output/"+file.getName()+".java");
+		//f.mkdir();
+		f.createNewFile();
+		//out = new BufferedWriter(new FileWriter("output/"+file.getName()));
+		out = new BufferedWriter(new FileWriter(f.getAbsolutePath()));
 		generate(ast);
 		write();
 		in.close();
@@ -34,7 +40,7 @@ public class Generator {
 	 * @param ast 
 	 */
 	public void generate(SimpleNode ast){
-		
+		generatedCode = ast.getCode();
 	}
 	
 	/**
@@ -42,6 +48,7 @@ public class Generator {
 	 * @throws IOException 
 	 */
 	public void write() throws IOException{
+		out.write(generatedCode);
 		/*boolean stop = false;
 		do{
 			String read = in.readLine();

@@ -1,0 +1,1 @@
+D=(((new Matrix (A,)).times(((new Matrix (C,)).minus(new Matrix (Z,))).plus(new Matrix (B,)))).plus((new Matrix (A,)).times(new Matrix (Z,)))).getArrayCopy();D=(((new Matrix (A,)).times(((new Matrix (C,)).minus(new Matrix (Z,))).plus(new Matrix (B,)))).plus((new Matrix (A,)).times(new Matrix (Z,)))).getArrayCopy();
