@@ -23,7 +23,7 @@ public class Generator {
 	public Generator(File file, SimpleNode ast) throws IOException{
 		in = new BufferedReader(new FileReader(file));
 		out = new BufferedWriter(new FileWriter("output/"+file.getName()));
-		generate();
+		generate(ast);
 		write();
 		in.close();
 		out.close();
@@ -31,8 +31,9 @@ public class Generator {
 	
 	/**
 	 * Generates the code
+	 * @param ast 
 	 */
-	public void generate(){
+	public void generate(SimpleNode ast){
 		
 	}
 	
@@ -41,21 +42,26 @@ public class Generator {
 	 * @throws IOException 
 	 */
 	public void write() throws IOException{
-		boolean stop = false;
-		int limitTop = 0;
+		/*boolean stop = false;
 		do{
-			int v = in.read();
-			char c = (char) v;
+			String read = in.readLine();
 			
-			if(c == '/'){
-				in.mark(0); // 
-				switch(c){
-				
-				}
+			if(read.contains("/*@mat")){
+				String[] lastTop = read.split("/*@mat");
+				out.write(lastTop[0].trim());
 			}else{
-				out.write(v);
+				out.write(read);
 			}
-			stop=true;
-		}while(!stop);
+
+		}while(!stop);*/
+	}
+	
+	public void main(String[] args){
+		try {
+			Generator g = new Generator(new File("input/test3.java"), new SimpleNode(1));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
