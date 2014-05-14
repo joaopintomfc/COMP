@@ -42,6 +42,15 @@ public class VariableStore {
 		storage.clear();
 	}
 	
+	public static String getType(String symbol) {
+		for(MyVariable Var : storage){
+			if(Var.symbol.equals(symbol)) {
+				return Var.type.image;
+			}
+		}
+		return null;
+	}
+	
 	public static void dump(){
 		for(MyVariable var : storage){
 			System.out.println(var);

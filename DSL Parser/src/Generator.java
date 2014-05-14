@@ -20,7 +20,7 @@ public class Generator {
 	BufferedWriter out;
 	String generatedCode;
 	
-	public Generator(File file, SimpleNode ast) throws IOException{
+	public Generator(File file, SimpleNode ast) throws IOException, SemanticException{
 		in = new BufferedReader(new FileReader(file));
 		File dir = new File("output/");
 		dir.mkdirs();
@@ -28,7 +28,6 @@ public class Generator {
 		f.createNewFile();
 		out = new BufferedWriter(new FileWriter(f));
 		generate(ast);
-		out.write(generatedCode);
 		write();
 		in.close();
 		out.close();
@@ -38,8 +37,9 @@ public class Generator {
 	/**
 	 * Generates the code
 	 * @param ast 
+	 * @throws SemanticException 
 	 */
-	public void generate(SimpleNode ast){
+	public void generate(SimpleNode ast) throws SemanticException{
 		generatedCode = ast.getCode();
 	}
 	

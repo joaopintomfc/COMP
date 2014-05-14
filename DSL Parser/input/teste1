@@ -1,9 +1,8 @@
 /*@mat
 in float B[];
 in float C[];
-in int A[];
-in int Z[];
+in int A[100];
+in int Z[16];
 out float D[];
 D=A*(B+C-Z)+A*Z;
-D(0:99)=A(0:99)*(B(0:99)+C(0:99)-Z(0:99))+A(0:99)*Z(0:99);
 */

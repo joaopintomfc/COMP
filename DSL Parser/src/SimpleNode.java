@@ -1,3 +1,4 @@
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -114,7 +115,7 @@ public class SimpleNode implements Node {
 
 	public boolean deleteUninterestingNodes() {
 
-		String strParent = toString();
+		//String strParent = toString();
 		if (this.symbol == null && jjtGetParent() != null) {
 			Node parent = this.jjtGetParent();
 
@@ -137,7 +138,7 @@ public class SimpleNode implements Node {
 			for (int i = 0; i < jjtGetNumChildren(); i++) {
 
 				Node actualChild = children[i];
-				String strChildren = children[i].toString();
+				//String strChildren = children[i].toString();
 				boolean apagou = children[i].deleteUninterestingNodes();
 				if (apagou) {
 					deleteChild(actualChild);
@@ -181,15 +182,16 @@ public class SimpleNode implements Node {
 
 	public String getCodeAux(int raizRangeMinVarsAtribuicao) {
 		if (symbolIsAnOperator()) {
-			return new String("(" + children[0].getCodeAux(raizRangeMinVarsAtribuicao) + "."
+			return new String("("
+					+ children[0].getCodeAux(raizRangeMinVarsAtribuicao) + "."
 					+ getCodeOperation(symbol)
 					+ children[1].getCodeAux(raizRangeMinVarsAtribuicao) + ")");
 		} else
-			return new String("(new Matrix (" + symbol + ","
+			return new String("(new CustomMatrix (" + symbol + ","
 					+ raizRangeMinVarsAtribuicao + "))");
 	}
 
-	public String getCode() {
+	public String getCode() throws SemanticException {
 		if (symbol == null) {
 			String retorno = new String("");
 
@@ -198,33 +200,51 @@ public class SimpleNode implements Node {
 			}
 			return retorno;
 		} else if (isAtribution()) {
-			int raizRangeMin = (int) Math.sqrt(getRangeMin());
+			int range = getRange();
+			if (range == -1)
+				throw new SemanticException("No range was defined");
+			int raizRange = (int) Math.sqrt(range);
 			String retorno = new String(children[0].getSymbol() + "="
-					+ children[1].getCodeAux(raizRangeMin) + ".getArrayCopy();\n");
+					+ children[1].getCodeAux(raizRange) + ".getArrayCopy"
+					+ tipoRetorno(children[0]) + "();\n");
 			return retorno;
-		}
-		else
+		} else
 			return null;
 	}
+	
+	/*
+	//ONLY CALLED IN START PRODUCTION WHEN SYMBOL == NULL
+	public void throwExceptionIfNoRangeWasDefined() throws SemanticException {
+		for (int i = 0; i < jjtGetNumChildren(); i++) {
+			if (children[i].getRangeMin() == -1)
+				throw new SemanticException("No range was defined in" + (i+1) + "º Atribution (=)");
+		}
+	}
+	*/
 
-	public int getRangeMin() {
+	private String tipoRetorno(Node node) {
+		return VariableStore.getType(node.getSymbol());
+	}
+
+	// NOT CALLED WHEN SYMBOL == NULL
+	public int getRange() throws SemanticException {
 		if (jjtGetNumChildren() == 0) {
 			return VariableStore.getRange(symbol);
 
 		} else {
-			int rangeMin = -1;
+			int range = -1;
 
 			for (int i = 0; i < jjtGetNumChildren(); i++) {
-				int rangeMinChild = children[i].getRangeMin();
+				int rangeChild = children[i].getRange();
 
-				if (rangeMin == -1 && rangeMinChild != -1)
-					rangeMin = rangeMinChild;
-
-				if (rangeMin != -1 && rangeMinChild < rangeMin)
-					rangeMin = rangeMinChild;
+				if (range != -1 && rangeChild != -1 && range != rangeChild)
+					throw new SemanticException("Different range in operating variables");
+				
+				if (range == -1 && rangeChild != -1)
+					range = rangeChild;
 			}
 
-			return rangeMin;
+			return range;
 		}
 	}
 
@@ -237,7 +257,7 @@ public class SimpleNode implements Node {
 		case "*":
 			return "times";
 		case "/":
-			return "arrayRightDivide";
+			return "divide";
 		case "+":
 			return "plus";
 		case "-":
