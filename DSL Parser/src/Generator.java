@@ -65,8 +65,8 @@ public class Generator {
 
 		}while(!stop);
 		
-		//out.write(generatedCode);
-		out.write("hello"+String.format("%n"));
+		out.write(generatedCode);
+		//out.write("hello"+String.format("%n"));
 		
 		stop=false;
 		do{
@@ -87,4 +87,45 @@ public class Generator {
 		}while(!stop);
 	}
 
+	public static String extractDSLCode(File file) throws IOException{
+		BufferedReader in;
+		BufferedWriter out;
+		in = new BufferedReader(new FileReader(file));
+		File dir = new File("temp/");
+		dir.mkdir();
+		String filename = new String("temp/"+file.getName());
+		out = new BufferedWriter(new FileWriter(new File(filename)));
+		
+		boolean stop = false;
+		do{
+			String read = in.readLine();
+			if(read == null) break;
+			if(read.contains("/*@mat")){
+				String[] lastTop = read.split(new String("/*@mat"));
+				for(int i=lastTop[0].trim().length()-2; i<lastTop[0].trim().length(); i++){
+					out.write(lastTop[0].trim().charAt(i));
+				}
+				out.write("@mat");
+				stop = true;
+				out.write(String.format("%n"));
+			}
+		}while(!stop);
+		
+		stop=false;
+		do{
+			String read = in.readLine();
+			if(read == null) break;
+			if(read.contains("*/")){
+				String[] lastDsl = read.split(new String("\\*/"));
+				stop=true;
+				if(lastDsl.length != 0)out.write(lastDsl[0].trim()+String.format("%n"));
+				out.write("*/");
+			}else{
+				out.write(read+String.format("%n"));
+			}
+		}while(!stop);
+		in.close();
+		out.close();
+		return filename;
+	}
 }
