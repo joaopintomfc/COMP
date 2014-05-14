@@ -27,10 +27,12 @@ public class Generator {
 		File f = new File("output/"+file.getName());
 		f.createNewFile();
 		out = new BufferedWriter(new FileWriter(f));
-		//generate(ast);
+		generate(ast);
+		out.write(generatedCode);
 		write();
 		in.close();
 		out.close();
+		
 	}
 	
 	/**

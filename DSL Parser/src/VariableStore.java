@@ -28,6 +28,16 @@ public class VariableStore {
 		}
 	}
 	
+	public static int getRange(String symbol) {
+		for(MyVariable Var : storage){
+			if(Var.symbol.equals(symbol)) {
+				//if ()
+				return Var.rangeArray;
+			}
+		}
+		return -1;
+	}
+	
 	public static void clear(){
 		storage.clear();
 	}

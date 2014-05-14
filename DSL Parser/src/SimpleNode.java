@@ -179,41 +179,60 @@ public class SimpleNode implements Node {
 
 	}
 
-	/*
-	 * public String getCode(String s) { return s;
-	 * 
-	 * }
-	 */
+	public String getCodeAux(int raizRangeMinVarsAtribuicao) {
+		if (symbolIsAnOperator()) {
+			return new String("(" + children[0].getCodeAux(raizRangeMinVarsAtribuicao) + "."
+					+ getCodeOperation(symbol)
+					+ children[1].getCodeAux(raizRangeMinVarsAtribuicao) + ")");
+		} else
+			return new String("(new Matrix (" + symbol + ","
+					+ raizRangeMinVarsAtribuicao + "))");
+	}
 
 	public String getCode() {
-		if (symbol == null)
-		{
+		if (symbol == null) {
 			String retorno = new String("");
 
-			for (int i = 0; i < jjtGetNumChildren(); i++)
-			{
+			for (int i = 0; i < jjtGetNumChildren(); i++) {
 				retorno = new String(retorno + children[i].getCode());
 			}
-
+			return retorno;
+		} else if (isAtribution()) {
+			int raizRangeMin = (int) Math.sqrt(getRangeMin());
+			String retorno = new String(children[0].getSymbol() + "="
+					+ children[1].getCodeAux(raizRangeMin) + ".getArrayCopy();\n");
 			return retorno;
 		}
-		else if (symbolIsAnOperator())
-		{
-			return new String("(" + children[0].getCode() + "." + getCodeOperation(symbol) + children[1].getCode() + ")");
-		}
-		else if (isAtribution())
-			return new String(children[0].getSymbol() + "=" + children[1].getCode() + ".getArrayCopy();");
 		else
-			return new String("(new Matrix (" + symbol + "," /*+Math.sqrt(range)*/ + "))");
-	}
-	
-	
-	
-	private boolean isAtribution() {
-		return (symbol.equals("="));		
+			return null;
 	}
 
-	private String getCodeOperation (String op) {
+	public int getRangeMin() {
+		if (jjtGetNumChildren() == 0) {
+			return VariableStore.getRange(symbol);
+
+		} else {
+			int rangeMin = -1;
+
+			for (int i = 0; i < jjtGetNumChildren(); i++) {
+				int rangeMinChild = children[i].getRangeMin();
+
+				if (rangeMin == -1 && rangeMinChild != -1)
+					rangeMin = rangeMinChild;
+
+				if (rangeMin != -1 && rangeMinChild < rangeMin)
+					rangeMin = rangeMinChild;
+			}
+
+			return rangeMin;
+		}
+	}
+
+	private boolean isAtribution() {
+		return (symbol.equals("="));
+	}
+
+	private String getCodeOperation(String op) {
 		switch (op) {
 		case "*":
 			return "times";
@@ -225,7 +244,7 @@ public class SimpleNode implements Node {
 			return "minus";
 		default:
 			return null;
-				
+
 		}
 	}
 
