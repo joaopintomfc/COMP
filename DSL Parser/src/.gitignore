@@ -4,7 +4,6 @@
 /DSLTokenManager.java
 /DSLTreeConstants.java
 /JJTDSLState.java
-/Node.java
 /ParseException.java
 /SimpleCharStream.java
 /SimpleNode.java
