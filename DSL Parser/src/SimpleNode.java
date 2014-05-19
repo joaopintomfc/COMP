@@ -264,7 +264,7 @@ public class SimpleNode implements Node {
 	// NOT CALLED WHEN SYMBOL == NULL
 	public int getRange() throws SemanticException {
 		if (jjtGetNumChildren() == 0) {
-			if (indicesRange == null)
+			if (indicesRange != null)
 				return (indicesRange[1] + 1 - indicesRange[0]);
 			else
 				return VariableStore.getRange(symbol);

@@ -1,5 +1,5 @@
 /*@mat
-	in int A[];
+	in int A[16];
 	in int B[];
 	in float C[];
 	out int resultado[];
@@ -7,7 +7,7 @@
 	
 	resultado = A + B - (A * B);
 	
-	resultado2 = (resultado * C) - (1-C)
+	resultado2 = (A * C) - C;
 */
 
 /* Tem que dar certo */
