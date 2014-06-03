@@ -59,6 +59,8 @@ public interface Node {
 			throws SemanticException;
 
 	public int getRange() throws SemanticException;
+
+	public String getType();
 }
 /*
  * JavaCC - OriginalChecksum=51a365986f30b3d8da41a4f7d049ee04 (do not edit this
