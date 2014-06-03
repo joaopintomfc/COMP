@@ -31,15 +31,7 @@ public class Generator {
 		generate(ast);
 		write();
 		in.close();
-		out.close();
-		
-		File tempDir = new File("temp/");
-		for(String s: tempDir.list()){
-		    File currentFile = new File(tempDir.getPath(),s);
-		    currentFile.delete();
-		}
-		tempDir.delete();
-		
+		out.close();	
 	}
 	
 	/**
@@ -135,5 +127,15 @@ public class Generator {
 		in.close();
 		out.close();
 		return filename;
+	}
+	
+	public static void clean(){
+		File tempDir = new File("temp/");
+		for(String s: tempDir.list()){
+		    File currentFile = new File(tempDir.getPath(),s);
+		    currentFile.delete();
+		}
+		tempDir.delete();
+
 	}
 }

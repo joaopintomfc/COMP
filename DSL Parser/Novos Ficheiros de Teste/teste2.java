@@ -1,17 +1,25 @@
-/*@mat
-	in int A[];
-	in int B[];
-	in float C[];
-	out int resultado[];
-	out int resultado2[];
+public Teste2 {
 	
-	resultado = A + B - (A * B);
+	private int[] A, B;
+	private float[] C, resultado;
 	
-	resultado2 = (resultado * C) / (1 - C);
-*/
-
-/* Tem que dar erro de semântica
- * resultado2 é INT e um dos seus
- * operandos, C, é float, perdendo-se
- * precisao
- */
+	private void loadVariables(){
+		//TODO: code...
+	}
+	
+	public void doOperation(){
+		//TODO: more code...
+		
+		/*@mat
+		in int A[16];
+		in int B[];
+		in float C[];
+		out int resultado[];
+		
+		resultado = A + B - (A * B) - C;
+		
+		*/
+		
+		//TODO: even more code...
+	}
+}

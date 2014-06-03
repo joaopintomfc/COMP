@@ -17,9 +17,9 @@ public Teste1 {
 		out float resultado[];
 
 		resultado = A + B - (A * B) - C;
-
 	*/
 		
+		//TODO: even more code...
 	}
 	
 }

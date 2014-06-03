@@ -219,6 +219,7 @@ public class SimpleNode implements Node {
 			return retorno;
 		} else if (isAtribution()) {
 			int range, raizRange;
+
 			if (indicesRange == null) {
 				range = getRange();
 				if (range == -1)
