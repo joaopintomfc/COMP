@@ -1,4 +1,4 @@
-public Teste3 {
+public Teste1 {
 	
 	private int[] A, B;
 	private float[] C, resultado;
@@ -14,12 +14,15 @@ public Teste3 {
 		in int A[16];
 		in int B[];
 		in float C[];
-		int float resultado[];
-		
+		out float resultado[];
+		out float resultado2[];
+
 		resultado = A + B - (A * B) - C;
 		
-		*/
+		resultado2 = B(0:15) + C(0:15);
+	*/
 		
 		//TODO: even more code...
 	}
+	
 }
