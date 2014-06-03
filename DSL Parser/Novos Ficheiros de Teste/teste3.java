@@ -23,21 +23,3 @@ public Teste3 {
 		//TODO: even more code...
 	}
 }
-
-
-/*@mat
-	in int A[];
-	in int B[];
-	in float C[];
-	int int resultado[];
-	out int resultado2[];
-	
-	resultado = A + B - (A * B) - C;
-	
-*/
-
-/* Tem que dar erro dado que
- * a variavel resultado está
- * declarada com variavel de
- * entrada
- */
