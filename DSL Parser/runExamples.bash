@@ -1,0 +1,1 @@
+for f in $(pwd)/examples/*; do java -jar dsl.jar $f; done
