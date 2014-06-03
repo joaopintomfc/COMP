@@ -1,3 +1,4 @@
+package dsl;
 
 public class SemanticException extends Exception {
 

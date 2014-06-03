@@ -1,3 +1,4 @@
+package dsl;
 public class MyVariable {
 	// public static boolean rangeOnDeclaration = false;
 	// public static int range = -1;
