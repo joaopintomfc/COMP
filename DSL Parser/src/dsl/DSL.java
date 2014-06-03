@@ -5,9 +5,8 @@ import java.io.*;
 public class DSL/*@bgen(jjtree)*/implements DSLTreeConstants, DSLConstants {/*@bgen(jjtree)*/
   protected static JJTDSLState jjtree = new JJTDSLState();public static void main(String args [])
   {
-    System.out.println("Reads from directory input/ and Writes to directory output/");
     DSL dsl = null;
-    /*File [] files;    File file = new File("input/");    files = file.listFiles();    for (int i = 0; i < files.length; i++)*/
+
         if( args[0] != null )
         {
       System.out.println("-- " + args[0] + " --");
@@ -46,7 +45,11 @@ public class DSL/*@bgen(jjtree)*/implements DSLTreeConstants, DSLConstants {/*@b
         System.out.println("Oops.");
         System.out.println(e.getMessage());
       }
-    }
+        }
+        else
+        {
+          System.out.println("No input files");
+        }
   }
 
   static final public SimpleNode Start() throws ParseException, SemanticException {
