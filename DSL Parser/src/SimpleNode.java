@@ -1,6 +1,3 @@
-
-
-
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -117,53 +114,41 @@ public class SimpleNode implements Node {
 				deleteChild(i);
 		}
 	}
-	
-	/*public boolean deleteFactorAfterTerm(){
-		
-		if (this.toString().equals("dslTerm") && this.children.length != 0 && this.children[0].toString().equals("dslFactor") && this.children[0].getSymbol() == null) {
-			Node parent = this.jjtGetParent();
-			System.out.println("ENTROU");
-			
-			
-			
-			
-			for (int i = 0; i < parent.jjtGetNumChildren(); i++) {
-				if (this == parent.jjtGetChild(i)) {
-					parent.deleteChild(i);
-					break;
-				}
-			}
 
-			for (int i = 0; i < jjtGetNumChildren(); i++) {
-				parent.appendChild(this.children[i]);
-				children[i].jjtSetParent(parent);
-			}
-
-			this.jjtSetParent(null);
-			
-			return true;
-		} else {
-			for (int i = 0; i < jjtGetNumChildren(); i++) {
-
-				Node actualChild = children[i];
-				// String strChildren = children[i].toString();
-				boolean apagou = children[i].deleteFactorAfterTerm();
-				if (apagou) {
-					deleteChild(actualChild);
-					i--;
-				}
-			}
-			return false;
-		}
-	}*/
+	/*
+	 * public boolean deleteFactorAfterTerm(){
+	 * 
+	 * if (this.toString().equals("dslTerm") && this.children.length != 0 &&
+	 * this.children[0].toString().equals("dslFactor") &&
+	 * this.children[0].getSymbol() == null) { Node parent =
+	 * this.jjtGetParent(); System.out.println("ENTROU");
+	 * 
+	 * 
+	 * 
+	 * 
+	 * for (int i = 0; i < parent.jjtGetNumChildren(); i++) { if (this ==
+	 * parent.jjtGetChild(i)) { parent.deleteChild(i); break; } }
+	 * 
+	 * for (int i = 0; i < jjtGetNumChildren(); i++) {
+	 * parent.appendChild(this.children[i]); children[i].jjtSetParent(parent); }
+	 * 
+	 * this.jjtSetParent(null);
+	 * 
+	 * return true; } else { for (int i = 0; i < jjtGetNumChildren(); i++) {
+	 * 
+	 * Node actualChild = children[i]; // String strChildren =
+	 * children[i].toString(); boolean apagou =
+	 * children[i].deleteFactorAfterTerm(); if (apagou) {
+	 * deleteChild(actualChild); i--; } } return false; } }
+	 */
 
 	public boolean deleteUninterestingNodes() {
-		//Scanner n = new Scanner(System.in);
-		//this.dump("");
-		//n.next();
+		// Scanner n = new Scanner(System.in);
+		// this.dump("");
+		// n.next();
 
 		// String strParent = toString();
-		//Node to delete
+		// Node to delete
 		if (this.symbol == null && jjtGetParent() != null) {
 			Node parent = this.jjtGetParent();
 			int indiceNoPai = 0;
@@ -177,7 +162,7 @@ public class SimpleNode implements Node {
 			}
 
 			for (int i = 0; i < jjtGetNumChildren(); i++) {
-				parent.addChild(this.children[i], indiceNoPai+i);
+				parent.addChild(this.children[i], indiceNoPai + i);
 				children[i].jjtSetParent(parent);
 				// this.deleteChild(i);
 			}
@@ -186,10 +171,10 @@ public class SimpleNode implements Node {
 		} else {
 			for (int i = 0; i < jjtGetNumChildren(); i++) {
 				Node actualChild = children[i];
-				
+
 				boolean apagou = children[i].deleteUninterestingNodes();
 				if (apagou) {
-					
+
 					deleteChild(actualChild);
 					i--;
 				}
@@ -238,12 +223,7 @@ public class SimpleNode implements Node {
 
 	public String getCodeAux(int raizRangeMinVarsAtribuicao)
 			throws SemanticException {
-		
-		if(symbol.equals("(") || symbol.equals(")")){
-
-			return new String(symbol);
-			
-		} else if (!symbolIsAnOperator()) {
+		if (!symbolIsAnOperator()) {
 			if (indicesRange == null)
 				return new String("new CustomMatrix (" + symbol + ","
 						+ raizRangeMinVarsAtribuicao + "))");
@@ -256,141 +236,248 @@ public class SimpleNode implements Node {
 						+ indicesRange[0] + "," + indicesRange[1] + "))");
 			}
 		} else {
-			
-				
-				if(children.length == 2){
-						
-					if(symbol.equals("*") || symbol.equals("/")){
-						return new String("(" + children[0].getCodeAux(raizRangeMinVarsAtribuicao) + "." 
-											  + getCodeOperation(symbol) + "("
-												+ children[1].getCodeAux(raizRangeMinVarsAtribuicao) + ")");
-					}
-					else {
-						return new String(""
-								+ children[0].getCodeAux(raizRangeMinVarsAtribuicao) + "."
-								+ getCodeOperation(symbol) + "("
-								+ children[1].getCodeAux(raizRangeMinVarsAtribuicao) + "");
-						}
+
+			if (children.length == 2) {
+
+				if (symbol.equals("*") || symbol.equals("/")) {
+					return new String(
+							"("
+									+ children[0]
+											.getCodeAux(raizRangeMinVarsAtribuicao)
+									+ "."
+									+ getCodeOperation(symbol)
+									+ "("
+									+ children[1]
+											.getCodeAux(raizRangeMinVarsAtribuicao)
+									+ ")");
+				} else {
+					return new String(
+							""
+									+ children[0]
+											.getCodeAux(raizRangeMinVarsAtribuicao)
+									+ "."
+									+ getCodeOperation(symbol)
+									+ "("
+									+ children[1]
+											.getCodeAux(raizRangeMinVarsAtribuicao)
+									+ "");
 				}
-				else { // tem parenteses
-					if(symbol.equals("*") || symbol.equals("/")){
-					
-						boolean notParenteses = false;
-						String resultado = new String("(");
-						
-						for( int i = 0; i < children.length; i++){
-							if((lastChildIsVariable() && !children[i].getSymbol().equals(")")) || !lastChildIsVariable() ){
-								resultado += children[i].getCodeAux(raizRangeMinVarsAtribuicao);
+			} else { // tem parenteses
 
-								String t1 = children[i].getSymbol();
+				String resultado = null;
+				if (symbol.equals("*") || symbol.equals("/"))
+					resultado = new String("(");
+				else
+					resultado = new String("");
 
-								if( !t1.equals("(") && notParenteses == false ){
+				int indiceFirstChildNotParenteses = getChildXNotParenteses(0);
+				int indiceSecondChildNotParenteses = getChildXNotParenteses(1);
 
-									if( lastChildIsVariable() ){
-										int nrParenteses = contaFechoParenteses(i);
+				Node firstChildNotParenteses = children[indiceFirstChildNotParenteses];
+				Node secondChildNotParenteses = children[indiceSecondChildNotParenteses];
 
-										for( int k = 0; k < nrParenteses; k++)
-											resultado += ")";
-										resultado += "." + getCodeOperation(symbol) + "(";
+				int numParentesesAbertosAteFirstChildNotParenteses = contaAberturaParentesesAteEncontrarAlgumSimboloDiferente(0);
+				int numParentesesFechadosAteNotParentesesFechados = contaFechoParentesesAteEncontrarAberturaParenteses(indiceFirstChildNotParenteses);
+				int numParentesesAbertosAntesDeSecondChild = contaAberturaParentesesAteEncontrarAlgumSimboloDiferente(indiceSecondChildNotParenteses);
+				int numParentesesFechadosDpsDeSecondChild = contaFechoParentesesAteAoFim(indiceSecondChildNotParenteses);
 
-									} else { 
-										resultado += "." + getCodeOperation(symbol) + "(";
-									}	
+				resultado += stringComNParenteses("(",
+						numParentesesAbertosAteFirstChildNotParenteses);
+				resultado += firstChildNotParenteses
+						.getCodeAux(raizRangeMinVarsAtribuicao);
+				resultado += stringComNParenteses(")",
+						numParentesesFechadosAteNotParentesesFechados);
 
-									notParenteses = true;
-								}
-							}
-						}
+				if (!lastChildIsVariable()) // ?!?!? - SE FILHO FOR ESTILO: A (
+											// B ) OU ( A B )
+					resultado += stringComNParenteses("(",
+							numParentesesAbertosAntesDeSecondChild);
+				else
+					resultado += stringComNParenteses("(",
+							numParentesesFechadosDpsDeSecondChild
+									- numParentesesAbertosAntesDeSecondChild);
 
-						resultado += ")";
-						
-						return resultado;
-						
-					} else { // + ou -
-						
-						boolean notParenteses = false;
-						String resultado = new String("");
-						
-						for( int i = 0; i < children.length; i++){
-							if( (lastChildIsVariable() && !children[i].getSymbol().equals(")")) || !lastChildIsVariable() ){
-								resultado += children[i].getCodeAux(raizRangeMinVarsAtribuicao);
+				resultado += "." + getCodeOperation(symbol) + "(";
 
-								String t1 = children[i].getSymbol();
+				resultado += secondChildNotParenteses
+						.getCodeAux(raizRangeMinVarsAtribuicao);
 
-								if( !t1.equals("(") && notParenteses == false ){
-									
-									if( lastChildIsVariable() ){
-										int nrParenteses = contaFechoParenteses(i);
-										System.out.println(symbol +  " : " + nrParenteses);
+				if (!lastChildIsVariable()) // ?!?!? - SE FILHO FOR ESTILO: A (
+											// B )
+					resultado += stringComNParenteses(")",
+							numParentesesAbertosAntesDeSecondChild);
+				else
+					resultado += stringComNParenteses(")",
+							numParentesesFechadosDpsDeSecondChild
+									- numParentesesAbertosAntesDeSecondChild);
 
-										for( int k = 0; k < nrParenteses; k++)
-											resultado += ")";
-										resultado += "." + getCodeOperation(symbol) + "(";
+				if (symbol.equals("*") || symbol.equals("/"))
+					resultado += ")";
 
-									} else { 
-										resultado += "." + getCodeOperation(symbol) + "(";
-									}	
-
-									notParenteses = true;
-								}
-							}
-						}
-
-						resultado += "";
-						
-						return resultado;
-						
-					}
+				return resultado;
 			}
 		}
 	}
-	
+
+	private int getChildXNotParenteses(int num) {
+		int contador = -1;
+		for (int i = 0; i < children.length; i++) {
+			if (!children[i].getSymbol().equals(")") && !children[i].getSymbol().equals("("))
+			{
+				contador++;
+			}
+			if(contador == num)
+				return i;
+		}
+		return 0;
+	}
+
+	private int contaAberturaParentesesAteEncontrarAlgumSimboloDiferente(
+			int indiceInicio) {
+		int contador = 0;
+		for (int i = indiceInicio; i < children.length; i++) {
+			if (!children[i].getSymbol().equals("("))
+				break;
+			else
+				contador++;
+		}
+		return contador;
+	}
+
+	private String stringComNParenteses(String parenteses,
+			int numParentesesAbertosAteFirstChildNotParenteses) {
+		String r = new String("");
+		
+		for (int i = 0; i < numParentesesAbertosAteFirstChildNotParenteses; i++) {
+			r += parenteses;
+		}
+		return r;
+	}
+
+	/*
+	 * public String getCodeAux(int raizRangeMinVarsAtribuicao) throws
+	 * SemanticException {
+	 * 
+	 * if (symbol.equals("(") || symbol.equals(")")) {
+	 * 
+	 * return new String(symbol);
+	 * 
+	 * } else if (!symbolIsAnOperator()) { if (indicesRange == null) return new
+	 * String("new CustomMatrix (" + symbol + "," + raizRangeMinVarsAtribuicao +
+	 * "))"); else { if (raizRangeMinVarsAtribuicao != (int) Math
+	 * .sqrt(indicesRange[1] + 1 - indicesRange[0])) throw new
+	 * SemanticException( "Some variables has different ranges\n"); return new
+	 * String("(new CustomMatrix (" + symbol + "," + indicesRange[0] + "," +
+	 * indicesRange[1] + "))"); } } else {
+	 * 
+	 * if (children.length == 2) {
+	 * 
+	 * if (symbol.equals("*") || symbol.equals("/")) { return new String( "(" +
+	 * children[0] .getCodeAux(raizRangeMinVarsAtribuicao) + "." +
+	 * getCodeOperation(symbol) + "(" + children[1]
+	 * .getCodeAux(raizRangeMinVarsAtribuicao) + ")"); } else { return new
+	 * String( "" + children[0] .getCodeAux(raizRangeMinVarsAtribuicao) + "." +
+	 * getCodeOperation(symbol) + "(" + children[1]
+	 * .getCodeAux(raizRangeMinVarsAtribuicao) + ""); } } else { // tem
+	 * parenteses if (symbol.equals("*") || symbol.equals("/")) {
+	 * 
+	 * boolean notParenteses = false; String resultado = new String("(");
+	 * 
+	 * for (int i = 0; i < children.length; i++) { if ((lastChildIsVariable() &&
+	 * !children[i].getSymbol() .equals(")")) || !lastChildIsVariable()) {
+	 * resultado += children[i] .getCodeAux(raizRangeMinVarsAtribuicao);
+	 * 
+	 * String t1 = children[i].getSymbol();
+	 * 
+	 * if (!t1.equals("(") && notParenteses == false) {
+	 * 
+	 * if (lastChildIsVariable()) { int nrParenteses = contaFechoParenteses(i);
+	 * 
+	 * for (int k = 0; k < nrParenteses; k++) resultado += ")"; resultado += "."
+	 * + getCodeOperation(symbol) + "(";
+	 * 
+	 * } else { resultado += "." + getCodeOperation(symbol) + "("; }
+	 * 
+	 * notParenteses = true; } } }
+	 * 
+	 * resultado += ")";
+	 * 
+	 * return resultado;
+	 * 
+	 * } else { // + ou -
+	 * 
+	 * boolean notParenteses = false; String resultado = new String("");
+	 * 
+	 * for (int i = 0; i < children.length; i++) { if ((lastChildIsVariable() &&
+	 * !children[i].getSymbol() .equals(")")) || !lastChildIsVariable()) {
+	 * resultado += children[i] .getCodeAux(raizRangeMinVarsAtribuicao);
+	 * 
+	 * String t1 = children[i].getSymbol();
+	 * 
+	 * if (!t1.equals("(") && notParenteses == false) {
+	 * 
+	 * if (lastChildIsVariable()) { int nrParenteses = contaFechoParenteses(i);
+	 * System.out.println(symbol + " : " + nrParenteses);
+	 * 
+	 * for (int k = 0; k < nrParenteses; k++) resultado += ")"; resultado += "."
+	 * + getCodeOperation(symbol) + "(";
+	 * 
+	 * } else { resultado += "." + getCodeOperation(symbol) + "("; }
+	 * 
+	 * notParenteses = true; } } }
+	 * 
+	 * resultado += "";
+	 * 
+	 * return resultado;
+	 * 
+	 * } } } }
+	 */
 	private boolean lastChildIsVariable() {
 		int i;
-		for( i = children.length-1; i > 0; i--)
-			if( !children[i].getSymbol().equals(")") )
+		for (i = children.length - 1; i > 0; i--)
+			if (!children[i].getSymbol().equals(")"))
 				break;
-		
-		if( contaTodosParentesesFechados() > contaFechoParentesesAteAoFim(i))
+
+		if (contaTodosParentesesFechados() > contaFechoParentesesAteAoFim(i))
 			return true;
-		
+
 		return false;
 	}
 
 	private int contaTodosParentesesFechados() {
-			int resultado = 0;
-		
-		for(int i = 0; i< children.length; i++)
-			if(children[i].getSymbol().equals(")") )
-				resultado++;
-			
-		return resultado;
-	}
-	
-	private int contaFechoParentesesAteAoFim(int min){
 		int resultado = 0;
-		
-		for(int i = min; i< children.length; i++){
-			if(children[i].getSymbol().equals(")") )
-					resultado++;
-			
-		}
-		
+
+		for (int i = 0; i < children.length; i++)
+			if (children[i].getSymbol().equals(")"))
+				resultado++;
+
 		return resultado;
 	}
 
-	private int contaFechoParenteses(int min){
+	private int contaFechoParentesesAteAoFim(int min) {
 		int resultado = 0;
-		
-		for(int i = min; i< children.length; i++){
-			if(children[i].getSymbol().equals(")") )
-					resultado++;
-		
-			if(children[i].getSymbol().equals("("))
-				return resultado;
-			
+
+		for (int i = min; i < children.length; i++) {
+			if (children[i].getSymbol().equals(")"))
+				resultado++;
+
 		}
-		
+
+		return resultado;
+	}
+
+	private int contaFechoParentesesAteEncontrarAberturaParenteses(int min) {
+		int resultado = 0;
+
+		for (int i = min; i < children.length; i++) {
+			if (children[i].getSymbol().equals(")"))
+				resultado++;
+
+			if (children[i].getSymbol().equals("("))
+				return resultado;
+
+		}
+
 		return resultado;
 	}
 
@@ -534,17 +621,16 @@ public class SimpleNode implements Node {
 	public void addChild(Node node, int i) {
 		Node[] nos = new Node[children.length];
 		System.arraycopy(children, 0, nos, 0, children.length);
-		
-		children =  new Node[children.length + 1];
-		
-		for(int k = 0; k < children.length; k++){
-			if( k < i)
+
+		children = new Node[children.length + 1];
+
+		for (int k = 0; k < children.length; k++) {
+			if (k < i)
 				children[k] = nos[k];
-			else if ( k == i ){
+			else if (k == i) {
 				children[i] = node;
-			}
-			else if ( k > i){
-				children[k] = nos[k-1];
+			} else if (k > i) {
+				children[k] = nos[k - 1];
 			}
 		}
 	}
