@@ -7,7 +7,7 @@ public class DSL/*@bgen(jjtree)*/implements DSLTreeConstants, DSLConstants {/*@b
   {
         if( args.length != 1){
                 System.out.println("Run: java -jar <name of the jar file.jar> <path of the example>");
-                System.exit(0);
+                //System.exit(0);
         }
 
     DSL dsl = null;
