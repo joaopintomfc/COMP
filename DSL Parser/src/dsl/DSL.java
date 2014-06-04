@@ -23,6 +23,10 @@ public class DSL/*@bgen(jjtree)*/implements DSLTreeConstants, DSLConstants {/*@b
         try
         {
           SimpleNode n = DSL.Start();
+          //System.out.println("---------");
+          //n.dump("");
+          //System.out.println("---------");
+          //n.deleteFactorAfterTerm();
           n.deleteUninterestingNodes();
           n.dump("");          Warning.dump();
           Generator gen = new Generator(new File(args[0]), n);
@@ -42,6 +46,7 @@ public class DSL/*@bgen(jjtree)*/implements DSLTreeConstants, DSLConstants {/*@b
         {
           System.err.println("::: Syntax Error :::");
           System.err.println(e.getMessage());
+          e.printStackTrace();
         }
       }
       catch (IOException e)

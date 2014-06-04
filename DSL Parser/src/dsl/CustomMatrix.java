@@ -18,11 +18,11 @@ public class CustomMatrix {
 			result[i] = input[i-indexBegin];
 		}
 	}
-	
+
 	public static void atribui(float[] result, float[] input, int range) {
 		atribui(result, input, 0, range-1);
 	}
-	
+
 	public static void atribui(float[] result, float[] input, int indexBegin, int indexEnd) {
 		for (int i = indexBegin; i <= indexEnd; i++) {
 			result[i] = input[i-indexBegin];
@@ -34,12 +34,34 @@ public class CustomMatrix {
 			result[i] = input[i-indexBegin];
 		}
 	}
-	
+
 	public static void atribui(int[] result, int[] input, int range) {
 		atribui(result, input, 0, range-1);
 	}
 
-	
+	public CustomMatrix(float[] arg0, int nColumnsAndNRows)
+			throws SemanticException {
+		if (nColumnsAndNRows * nColumnsAndNRows > arg0.length)
+			throw new SemanticException(
+					"Array with size of declaration insufficient");
+		double[] doubles = new double[arg0.length];
+		for(int i=0; i<arg0.length; i++) {
+			doubles[i] = arg0[i];
+		}
+		m = new Matrix(doubles, nColumnsAndNRows);
+	}
+
+	public CustomMatrix(int[] arg0, int nColumnsAndNRows)
+			throws SemanticException {
+		if (nColumnsAndNRows * nColumnsAndNRows > arg0.length)
+			throw new SemanticException(
+					"Array with size of declaration insufficient");
+		double[] doubles = new double[arg0.length];
+		for(int i=0; i<arg0.length; i++) {
+			doubles[i] = arg0[i];
+		}
+		m = new Matrix(doubles, nColumnsAndNRows);
+	}
 
 	public CustomMatrix(double[] arg0, int nColumnsAndNRows)
 			throws SemanticException {
@@ -106,7 +128,9 @@ public class CustomMatrix {
 	 * //this.nRows = nRows; m = new Matrix(array, nColumns); }
 	 */
 	public CustomMatrix(Matrix m) {
-		this.m = m;
+		this.m = (Matrix) m.clone();
+		
+		this.print();
 	}
 
 	public CustomMatrix minus(CustomMatrix c) {
@@ -130,7 +154,7 @@ public class CustomMatrix {
 		double[][] array2d = m.getArrayCopy();
 
 		double[] array1d = new double[m.getColumnDimension()
-				* m.getRowDimension()];
+		                              * m.getRowDimension()];
 
 		for (int i = 0; i < array2d.length; i++) {
 			for (int a = 0; a < array2d[i].length; a++) {
@@ -145,7 +169,7 @@ public class CustomMatrix {
 		double[][] array2d = m.getArrayCopy();
 
 		float[] array1d = new float[m.getColumnDimension()
-				* m.getRowDimension()];
+		                            * m.getRowDimension()];
 
 		for (int i = 0; i < array2d.length; i++) {
 			for (int a = 0; a < array2d[i].length; a++) {

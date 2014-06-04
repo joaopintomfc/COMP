@@ -1,7 +1,7 @@
-public class Teste1 {
+public class teste1 {
 	
 	private int[] A, B;
-	private float[] C, resultado;
+	private float[] C, resultado = new float[16];
 	
 	/* Para testes */
 	private float expected[];
@@ -9,7 +9,7 @@ public class Teste1 {
 	private void loadVariables(){
 		
 		/* Matriz A */
-		A = {	
+		A = new int[] {	
 				1, 1, 1, 1,
 				1, 1, 1, 1,
 				1, 1, 1, 1,
@@ -17,7 +17,7 @@ public class Teste1 {
 			};
 		
 		/* Matrix B */
-		B = {	
+		B = new int[]{	
 				1, 1, 1, 1,
 				1, 1, 1, 1,
 				1, 1, 1, 1,
@@ -25,21 +25,25 @@ public class Teste1 {
 			};
 		
 		/* Matrix C */;
-		C = {	
-				1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1
+		C = new float[]{	
+				2, 2, 2, 2,
+				2, 2, 2, 2,
+				2, 2, 2, 2,
+				2, 2, 2, 2
 			};
 		
 		/* Matriz expected - For testing purposes */
-		expected = {	
-				1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1
+		expected = new float[]{	
+				-1, -1, -1, -1,
+				-1, -1, -1, -1,
+				-1, -1, -1, -1,
+				-1, -1, -1, -1
 			};
 	}
+	
+	public float[] getExpected(){ return expected; }
+	
+	public float[] getResultado(){ return resultado; }
 	
 	public void doOperation(){
 		loadVariables();
@@ -49,10 +53,8 @@ public class Teste1 {
 		in int B[];
 		in float C[];
 		out float resultado[];
-		out float resultado2[];
 
-		resultado = A + B - C;
-		
+		resultado = (A + B - (A * B)) - C;
 		 */
 		
 		//TODO: more code...

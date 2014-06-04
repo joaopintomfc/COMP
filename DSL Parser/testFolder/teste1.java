@@ -1,7 +1,10 @@
+import dsl.CustomMatrix;
+import dsl.SemanticException;
+
 public class teste1 {
 	
 	private int[] A, B;
-	private float[] C, resultado;
+	private float[] C, resultado = new float[16];
 	
 	/* Para testes */
 	private float expected[];
@@ -34,10 +37,10 @@ public class teste1 {
 		
 		/* Matriz expected - For testing purposes */
 		expected = new float[]{	
-				1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1
+				-1, -1, -1, -1,
+				-1, -1, -1, -1,
+				-1, -1, -1, -1,
+				-1, -1, -1, -1
 			};
 	}
 	
@@ -45,18 +48,19 @@ public class teste1 {
 	
 	public float[] getResultado(){ return resultado; }
 	
-	public void doOperation(){
+	public void doOperation() throws SemanticException{
 		loadVariables();
 		
-		/*@mat
-		in int A[16];
-		in int B[];
-		in float C[];
-		out float resultado[];
 
-		resultado = A + B - (A * B) - C;
-		
-		 */
+CustomMatrix.atribui(resultado,(
+									(
+											(new CustomMatrix (A,4)).plus(
+														(new CustomMatrix (B,4)).minus(
+																						(new CustomMatrix (A,4)).times(new CustomMatrix (B,4))
+																						)
+																	)
+								    ).minus(new CustomMatrix (C,4))
+							   ).getArrayCopyfloat(), 16);
 		
 		//TODO: more code...
 	}
