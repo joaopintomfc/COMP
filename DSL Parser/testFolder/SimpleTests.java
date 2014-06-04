@@ -2,8 +2,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import dsl.SemanticException;
-
 
 public class SimpleTests {
 

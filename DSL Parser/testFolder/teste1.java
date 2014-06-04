@@ -1,6 +1,3 @@
-import dsl.CustomMatrix;
-import dsl.SemanticException;
-
 public class teste1 {
 	
 	private int[] A, B;
@@ -48,13 +45,16 @@ public class teste1 {
 	
 	public float[] getResultado(){ return resultado; }
 	
-	public void doOperation() throws SemanticException{
+	public void doOperation(){
 		loadVariables();
 		
 
-CustomMatrix.atribui(resultado,(((new CustomMatrix (A,4)).plus((new CustomMatrix (B,4)).minus((new CustomMatrix (A,4)).times(new CustomMatrix (B,4))))).minus(new CustomMatrix (C,4))).getArrayCopyfloat(), 16);
+CustomMatrix.atribui(resultado,((.minus(new CustomMatrix (A,4)).plus(new CustomMatrix (B,4)).minus(((new CustomMatrix (A,4)).times(new CustomMatrix (B,4)))))new CustomMatrix (C,4)).getArrayCopyfloat(), 16);
 		
 		//TODO: more code...
+		/* // 0
+		
+		 // -4*/
 	}
 	
 }
