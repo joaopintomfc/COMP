@@ -45,7 +45,7 @@ public class teste1 {
 	
 	public float[] getResultado(){ return resultado; }
 	
-	public void doOperation(){
+	public void doOperation() throws SemanticException{
 		loadVariables();
 		
 		/*@mat
@@ -54,7 +54,8 @@ public class teste1 {
 		in float C[];
 		out float resultado[];
 		
-		resultado = ((((A))) + (B) - (A * B)) - C;
+		resultado = (A + B) * ( A + C);
+		
 		*/
 		
 		//TODO: more code...
