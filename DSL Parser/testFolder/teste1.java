@@ -52,15 +52,7 @@ public class teste1 {
 		loadVariables();
 		
 
-CustomMatrix.atribui(resultado,(
-									(
-											(new CustomMatrix (A,4)).plus(
-														(new CustomMatrix (B,4)).minus(
-																						(new CustomMatrix (A,4)).times(new CustomMatrix (B,4))
-																						)
-																	)
-								    ).minus(new CustomMatrix (C,4))
-							   ).getArrayCopyfloat(), 16);
+CustomMatrix.atribui(resultado,(((new CustomMatrix (A,4)).plus((new CustomMatrix (B,4)).minus((new CustomMatrix (A,4)).times(new CustomMatrix (B,4))))).minus(new CustomMatrix (C,4))).getArrayCopyfloat(), 16);
 		
 		//TODO: more code...
 	}

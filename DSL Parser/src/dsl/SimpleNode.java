@@ -235,12 +235,7 @@ public class SimpleNode implements Node {
 
 	public String getCodeAux(int raizRangeMinVarsAtribuicao)
 			throws SemanticException {
-		if (symbolIsAnOperator()) {
-			return new String("("
-					+ children[0].getCodeAux(raizRangeMinVarsAtribuicao) + "."
-					+ getCodeOperation(symbol)
-					+ children[1].getCodeAux(raizRangeMinVarsAtribuicao) + ")");
-		} else {
+		if (!symbolIsAnOperator()) {
 			if (indicesRange == null)
 				return new String("(new CustomMatrix (" + symbol + ","
 						+ raizRangeMinVarsAtribuicao + "))");
@@ -252,6 +247,11 @@ public class SimpleNode implements Node {
 				return new String("(new CustomMatrix (" + symbol + ","
 						+ indicesRange[0] + "," + indicesRange[1] + "))");
 			}
+		} else {
+			return new String("("
+					+ children[0].getCodeAux(raizRangeMinVarsAtribuicao) + "."
+					+ getCodeOperation(symbol)
+					+ children[1].getCodeAux(raizRangeMinVarsAtribuicao) + ")");
 		}
 	}
 
