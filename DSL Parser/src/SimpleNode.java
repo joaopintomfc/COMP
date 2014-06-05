@@ -277,8 +277,8 @@ public class SimpleNode implements Node {
 				Node secondChildNotParenteses = children[indiceSecondChildNotParenteses];
 
 				int numParentesesAbertosAteFirstChildNotParenteses = contaAberturaParentesesAteEncontrarAlgumSimboloDiferente(0);
-				int numParentesesFechadosAteNotParentesesFechados = contaFechoParentesesAteEncontrarAberturaParenteses(indiceFirstChildNotParenteses);
-				int numParentesesAbertosAntesDeSecondChild = contaAberturaParentesesAteEncontrarAlgumSimboloDiferente(indiceSecondChildNotParenteses);
+				int numParentesesFechadosAteNotParentesesFechadosAfterFirstChild = contaFechoParentesesAteEncontrarAberturaParenteses(indiceFirstChildNotParenteses);
+				int numParentesesAbertosAntesDeSecondChild = contaAberturaParentesesAteEncontrarAlgumSimboloDiferente(indiceFirstChildNotParenteses+numParentesesFechadosAteNotParentesesFechadosAfterFirstChild+1);
 				int numParentesesFechadosDpsDeSecondChild = contaFechoParentesesAteAoFim(indiceSecondChildNotParenteses);
 
 				resultado += stringComNParenteses("(",
@@ -286,31 +286,34 @@ public class SimpleNode implements Node {
 				resultado += firstChildNotParenteses
 						.getCodeAux(raizRangeMinVarsAtribuicao);
 				resultado += stringComNParenteses(")",
-						numParentesesFechadosAteNotParentesesFechados);
-
-				if (!lastChildIsVariable()) // ?!?!? - SE FILHO FOR ESTILO: A (
-											// B ) OU ( A B )
-					resultado += stringComNParenteses("(",
-							numParentesesAbertosAntesDeSecondChild);
-				else
-					resultado += stringComNParenteses("(",
-							numParentesesFechadosDpsDeSecondChild
-									- numParentesesAbertosAntesDeSecondChild);
+						numParentesesFechadosAteNotParentesesFechadosAfterFirstChild);
 
 				resultado += "." + getCodeOperation(symbol) + "(";
+				
+				resultado += stringComNParenteses("(",numParentesesAbertosAntesDeSecondChild);
+				/*
+				if (!lastChildIsVariable()) {// ?!?!? - SE FILHO FOR ESTILO: ( A ) B 
+					resultado += stringComNParenteses("(",
+							numParentesesAbertosAntesDeSecondChild);
+					if (symbol.equals("-")) {
+						System.out.println("LAST CHILD IS NOT A VARIABLE! numChild: " + children.length);
+					}
+				}
+				*/
+				//else			resultado += stringComNParenteses("(",numParentesesFechadosDpsDeSecondChild	- numParentesesAbertosAntesDeSecondChild);
+
 
 				resultado += secondChildNotParenteses
 						.getCodeAux(raizRangeMinVarsAtribuicao);
 
+				resultado += stringComNParenteses(")",numParentesesFechadosDpsDeSecondChild);
+				/*
 				if (!lastChildIsVariable()) // ?!?!? - SE FILHO FOR ESTILO: A (
 											// B )
 					resultado += stringComNParenteses(")",
-							numParentesesAbertosAntesDeSecondChild);
-				else
-					resultado += stringComNParenteses(")",
-							numParentesesFechadosDpsDeSecondChild
-									- numParentesesAbertosAntesDeSecondChild);
-
+							numParentesesFechadosDpsDeSecondChild);
+				else resultado += stringComNParenteses(")",numParentesesAbertosAteFirstChildNotParenteses - numParentesesFechadosAteNotParentesesFechadosAfterFirstChild);
+				*/
 				if (symbol.equals("*") || symbol.equals("/"))
 					resultado += ")";
 
