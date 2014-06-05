@@ -1,4 +1,4 @@
-public class teste1 {
+public class teste9 {
 	
 	private int[] A, B;
 	private float[] C, resultado = new float[16];
@@ -34,10 +34,10 @@ public class teste1 {
 		
 		/* Matriz expected - For testing purposes */
 		expected = new float[]{	
-				-1, -1, -1, -1,
-				-1, -1, -1, -1,
-				-1, -1, -1, -1,
-				-1, -1, -1, -1
+				-4, -4, -4, -4,
+				-4, -4, -4, -4,
+				-4, -4, -4, -4,
+				-4, -4, -4, -4
 			};
 	}
 	
@@ -53,15 +53,11 @@ public class teste1 {
 		in int B[];
 		in float C[];
 		out float resultado[];
+
+		resultado = A + B - A * B - C;
 		
-		resultado = (A + B) * ( A + C);
+		 */
 		
-		*/
-		
-		//TODO: more code...
-		/* // 0
-		
-		 // -4*/
+		//TODO: even more code...
 	}
-	
 }

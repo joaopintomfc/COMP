@@ -50,16 +50,5 @@ public class SimpleTests {
 		assertArrayEquals(test10.getExpected(), test10.getResultado(), (float) 0.01);
 		
 	}
-	
-	@Test
-	public void test11() throws SemanticException {
-		teste11 test11 = new teste11();
-		
-		// Do the math
-		test11.doOperation();
-		
-		assertArrayEquals(test11.getExpected(), test11.getResultado(), (float) 0.01);
-		
-	}
 
 }

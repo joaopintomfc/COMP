@@ -223,10 +223,7 @@ public class SimpleNode implements Node {
 
 	public String getCodeAux(int raizRangeMinVarsAtribuicao)
 			throws SemanticException {
-		if (symbol.equals("(") || symbol.equals(")")) {
-			return symbol;
-		}
-		else if (!symbolIsAnOperator()) {
+		if (!symbolIsAnOperator()) {
 			if (indicesRange == null)
 				return new String("new CustomMatrix (" + symbol + ","
 						+ raizRangeMinVarsAtribuicao + "))");
@@ -509,24 +506,17 @@ public class SimpleNode implements Node {
 
 			raizRange = (int) Math.sqrt(range);
 			String retorno;
-			String codigoGeradoTodosNosFilhosExceptoPrimeiro = new String("");
-			
-			for (int i = 1; i < jjtGetNumChildren(); i++) {
-				codigoGeradoTodosNosFilhosExceptoPrimeiro += children[i].getCodeAux(raizRange);
-			}
-			
+
 			if (indicesRange == null) {
 				retorno = new String("CustomMatrix.atribui("
 						+ children[0].getSymbol() + ",("
-						//+ children[1].getCodeAux(raizRange) + ".getArrayCopy"
-						+ codigoGeradoTodosNosFilhosExceptoPrimeiro + ".getArrayCopy"
+						+ children[1].getCodeAux(raizRange) + ".getArrayCopy"
 						+ tipoRetorno(children[0]) + "(), " + range + ");\n");
 
 			} else {
 				retorno = new String("CustomMatrix.atribui("
 						+ children[0].getSymbol() + ",("
-						//+ children[1].getCodeAux(raizRange) + ".getArrayCopy"
-						+ codigoGeradoTodosNosFilhosExceptoPrimeiro + ".getArrayCopy"
+						+ children[1].getCodeAux(raizRange) + ".getArrayCopy"
 						+ tipoRetorno(children[0]) + "(), " + indicesRange[0]
 						+ "," + indicesRange[1] + ");\n");
 			}
