@@ -55,8 +55,15 @@ public class teste1 {
 	public void doOperation() throws SemanticException{
 		loadVariables();
 		
+		/*@mat
+		in int A[16];
+		in int B[];
+		in float C[];
+		out float resultado[];
 
-CustomMatrix.atribui(resultado,((((new CustomMatrix (A,1,4)).plus(new CustomMatrix (B,10,13))).times((new CustomMatrix (A,12,15)).plus(new CustomMatrix (C,0,3))))).getArrayCopyfloat(), 5,8);
+		resultado(5:8) = ((A(1:4) + B(10:13)) * (A(12:15) + C(0:3)));
+		
+		 */
 		
 		//TODO: even more code...
 	}
