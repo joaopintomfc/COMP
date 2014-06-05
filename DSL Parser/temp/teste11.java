@@ -3,7 +3,8 @@
 		in int B[];
 		in float C[];
 		out float resultado[];
+
+		resultado = (A + B) * (A + C);
 		
-		resultado = A + B - A * B - C;
 
 */

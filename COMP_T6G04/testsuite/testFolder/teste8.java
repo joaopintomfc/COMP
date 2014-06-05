@@ -34,10 +34,10 @@ public class teste8 {
 		
 		/* Matriz expected - For testing purposes */
 		expected = new float[]{	
-				-1, -1, -1, -1,
-				-1, -1, -1, -1,
-				-1, -1, -1, -1,
-				-1, -1, -1, -1
+				0, 0, 0, 0,
+				0, 0, 0, 0,
+				0, 0, 0, 0,
+				0, 0, 0, 0,
 			};
 	}
 	
@@ -48,15 +48,8 @@ public class teste8 {
 	public void doOperation() throws SemanticException{
 		loadVariables();
 		
-		/*@mat
-		in int A[];
-		in int B[];
-		in float C[];
-		out float resultado[];
 
-		resultado(0:15) = A(0:15) + B(0:15) - (( A(0:15) * B(0:15) ) - C(0:15));
-		
-		 */
+CustomMatrix.atribui(resultado,(new CustomMatrix (A,0,15)).plus(new CustomMatrix (B,0,15)).minus((((new CustomMatrix (A,0,15)).times(new CustomMatrix (B,0,15)))).minus(new CustomMatrix (C,0,15))).getArrayCopyfloat(), 0,15);
 		
 		//TODO: even more code...
 	}
