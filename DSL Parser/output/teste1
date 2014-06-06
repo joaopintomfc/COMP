@@ -1,0 +1,2 @@
+
+CustomMatrix.atribui(D,((new CustomMatrix (A,0,99)).times((new CustomMatrix (B,0,99)).plus(new CustomMatrix (C,0,99)).minus(new CustomMatrix (Z,0,99)))).plus((new CustomMatrix (A,0,99)).times(new CustomMatrix (Z,0,99))).getArrayCopyfloat(), 0,99);

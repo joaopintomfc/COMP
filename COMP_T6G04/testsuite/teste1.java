@@ -1,25 +1,62 @@
-public Teste1 {
+public class teste1 {
 	
 	private int[] A, B;
-	private float[] C, resultado;
+	private float[] C, resultado = new float[16];
+	
+	/* Para testes */
+	private float expected[];
 	
 	private void loadVariables(){
-		//TODO: code...
+		
+		/* Matriz A */
+		A = new int[] {	
+				1, 1, 1, 1,
+				1, 1, 1, 1,
+				1, 1, 1, 1,
+				1, 1, 1, 1
+			};
+		
+		/* Matrix B */
+		B = new int[]{	
+				1, 1, 1, 1,
+				1, 1, 1, 1,
+				1, 1, 1, 1,
+				1, 1, 1, 1
+			};
+		
+		/* Matrix C */;
+		C = new float[]{	
+				2, 2, 2, 2,
+				2, 2, 2, 2,
+				2, 2, 2, 2,
+				2, 2, 2, 2
+			};
+		
+		/* Matriz expected - For testing purposes */
+		expected = new float[]{	
+				-1, -1, -1, -1,
+				-1, -1, -1, -1,
+				-1, -1, -1, -1,
+				-1, -1, -1, -1
+			};
 	}
 	
-	public void doOperation(){
-		//TODO: more code...
+	public float[] getExpected(){ return expected; }
+	
+	public float[] getResultado(){ return resultado; }
+	
+	public void doOperation() throws SemanticException{
+		loadVariables();
 		
 		/*@mat
 		in int A[16];
 		in int B[];
 		in float C[];
 		out float resultado[];
-
-		resultado = A + B - (A * B) - C;
-	*/
 		
-		//TODO: even more code...
+		resultado = (A + B) - (( A * B ) - C);
+		
+		*/
 	}
 	
 }

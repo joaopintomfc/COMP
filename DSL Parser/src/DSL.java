@@ -24,7 +24,7 @@ public class DSL/*@bgen(jjtree)*/implements DSLTreeConstants, DSLConstants {/*@b
         {
           SimpleNode n = DSL.Start();
           n.deleteUninterestingNodes();
-          //n.dump("");          Warning.dump();
+          n.dump("");          Warning.dump();
           Generator gen = new Generator(new File(args[0]), n);
           System.out.println("Successfully Parsed and Generated!\u005cn");
           // Clear all the static stuff for the next file parsing          VariableStore.clear();

@@ -14,7 +14,7 @@ public Teste3 {
 		in int A[16];
 		in int B[];
 		in float C[];
-		int float resultado[];
+		in float resultado[];
 		
 		resultado = A + B - (A * B) - C;
 		
