@@ -80,7 +80,13 @@ public class CustomMatrix {
 		if (arg0.length <= indEnd)
 			throw new SemanticException(
 					"Array with size of declaration insufficient");
-		double[] array = Arrays.copyOfRange(arg0, indBegin, indEnd);
+
+		double[] array = new double[indEnd + 1 - indBegin];
+
+		for (int i = indBegin; i <= indEnd; i++) {
+			array[i - indBegin] = arg0[i];
+		}
+		
 		int sqrtRange = (int) Math.sqrt(indEnd + 1 - indBegin);
 
 		m = new Matrix(array, sqrtRange);
@@ -92,7 +98,7 @@ public class CustomMatrix {
 		if (arg0.length <= indEnd)
 			throw new SemanticException(
 					"Array with size of declaration insufficient");
-		double[] array = new double[indEnd + 1];
+		double[] array = new double[indEnd + 1 - indBegin];
 
 		for (int i = indBegin; i <= indEnd; i++) {
 			array[i - indBegin] = arg0[i];
@@ -110,7 +116,7 @@ public class CustomMatrix {
 		if (arg0.length <= indEnd)
 			throw new SemanticException(
 					"Array with size of declaration insufficient");
-		double[] array = new double[indEnd + 1];
+		double[] array = new double[indEnd + 1 - indBegin];
 
 		for (int i = indBegin; i <= indEnd; i++) {
 			array[i - indBegin] = arg0[i];

@@ -7,37 +7,44 @@ public class teste1 {
 	private float expected[];
 	
 	private void loadVariables(){
+		/* Resultado */
+		resultado = new float[] {	
+				0, 0, 0, 0,
+				0, 0, 0, 0,
+				0, 0, 0, 0,
+				0, 0, 0, 0
+			};
 		
 		/* Matriz A */
 		A = new int[] {	
+				1, 2, 2, 2,
+				2, 1, 1, 1,
 				1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1
+				2, 2, 2, 2
 			};
 		
 		/* Matrix B */
 		B = new int[]{	
 				1, 1, 1, 1,
 				1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1
+				1, 1, 2, 2,
+				2, 2, 1, 1
 			};
 		
 		/* Matrix C */;
 		C = new float[]{	
-				2, 2, 2, 2,
+				1, 1, 1, 1,
 				2, 2, 2, 2,
 				2, 2, 2, 2,
 				2, 2, 2, 2
 			};
 		
 		/* Matriz expected - For testing purposes */
-		expected = new float[]{	
+		expected = new float[]{		
 				0, 0, 0, 0,
-				0, 0, 0, 0,
-				0, 0, 0, 0,
-				0, 0, 0, 0,
+				0, 24, 24, 24,
+				24, 0, 0, 0,
+				0, 0, 0, 0
 			};
 	}
 	
@@ -49,8 +56,8 @@ public class teste1 {
 		loadVariables();
 		
 
-CustomMatrix.atribui(resultado,((new CustomMatrix (A,4)).plus(new CustomMatrix (B,4))).minus((((new CustomMatrix (A,4)).times(new CustomMatrix (B,4)))).minus(new CustomMatrix (C,4))).getArrayCopyfloat(), 16);
+CustomMatrix.atribui(resultado,((((new CustomMatrix (A,1,4)).plus(new CustomMatrix (B,10,13))).times((new CustomMatrix (A,12,15)).plus(new CustomMatrix (C,0,3))))).getArrayCopyfloat(), 5,8);
 		
+		//TODO: even more code...
 	}
-	
 }

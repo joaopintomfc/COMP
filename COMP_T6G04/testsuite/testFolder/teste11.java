@@ -1,4 +1,4 @@
-public class teste1 {
+public class teste11 {
 	
 	private int[] A, B;
 	private float[] C, resultado = new float[16];
@@ -7,44 +7,37 @@ public class teste1 {
 	private float expected[];
 	
 	private void loadVariables(){
-		/* Resultado */
-		resultado = new float[] {	
-				0, 0, 0, 0,
-				0, 0, 0, 0,
-				0, 0, 0, 0,
-				0, 0, 0, 0
-			};
 		
 		/* Matriz A */
 		A = new int[] {	
-				1, 2, 2, 2,
-				2, 1, 1, 1,
 				1, 1, 1, 1,
-				2, 2, 2, 2
+				1, 1, 1, 1,
+				1, 1, 1, 1,
+				1, 1, 1, 1
 			};
 		
 		/* Matrix B */
 		B = new int[]{	
 				1, 1, 1, 1,
 				1, 1, 1, 1,
-				1, 1, 2, 2,
-				2, 2, 1, 1
+				1, 1, 1, 1,
+				1, 1, 1, 1
 			};
 		
 		/* Matrix C */;
 		C = new float[]{	
-				1, 1, 1, 1,
+				2, 2, 2, 2,
 				2, 2, 2, 2,
 				2, 2, 2, 2,
 				2, 2, 2, 2
 			};
 		
 		/* Matriz expected - For testing purposes */
-		expected = new float[]{		
-				0, 0, 0, 0,
-				0, 24, 24, 24,
-				24, 0, 0, 0,
-				0, 0, 0, 0
+		expected = new float[]{	
+				24, 24, 24, 24,
+				24, 24, 24, 24,
+				24, 24, 24, 24,
+				24, 24, 24, 24
 			};
 	}
 	
@@ -55,15 +48,8 @@ public class teste1 {
 	public void doOperation() throws SemanticException{
 		loadVariables();
 		
-		/*@mat
-		in int A[16];
-		in int B[];
-		in float C[];
-		out float resultado[];
 
-		resultado(5:8) = ((A(1:4) + B(10:13)) * (A(12:15) + C(0:3)));
-		
-		 */
+CustomMatrix.atribui(resultado,(((new CustomMatrix (A,4)).plus(new CustomMatrix (B,4))).times((new CustomMatrix (A,4)).plus(new CustomMatrix (C,4)))).getArrayCopyfloat(), 16);
 		
 		//TODO: even more code...
 	}
